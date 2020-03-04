@@ -1,0 +1,11 @@
+{
+  "name": "suppressWarnings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
+}
