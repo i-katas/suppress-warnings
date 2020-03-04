@@ -30,7 +30,7 @@ describe('arity', () => {
         expect(arity(1, () => 3)).toHaveLength(1);
     });
 
-    it('return factory if callback not pass', () => {
+    it('return factory if callback is not provided', () => {
         let factory = arity(5);
 
         let callback = factory(() => 3);

@@ -1,7 +1,7 @@
 {
   "name": "suppressWarnings",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src",
   "scripts": {
     "test": "npx jest"
   },

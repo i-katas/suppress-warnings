@@ -1,4 +1,4 @@
-const arity = require('./src/arity');
+const arity = require('./arity');
 const noop = () => void(0);
 
 module.exports = function (callback) {
