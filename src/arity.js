@@ -7,9 +7,14 @@
   }
 })(typeof window !== 'undefined' && window || this, function(window) {
   var cache = {};
-  var rewriteLength = (function(rewrite){ 
+  var rewriteLength = (function(define){ 
     try {
-      return rewrite && rewrite(arguments.callee, 'length', {value: 5}).length == 5 && rewrite; 
+      return define && (function(define) {
+        function setLength(fn, n) {
+          return define(fn, 'length', {value: n});
+        }
+        return setLength(arguments.callee, 5).length === 5 && setLength;
+      })(define); 
     } catch(e) {
       return false;
     }
@@ -18,7 +23,7 @@
   function factory(n) {
     if(rewriteLength) {
       return function(f) {
-        return rewriteLength(f, 'length', {value: n});
+        return rewriteLength(f, n);
       };
     }
     return new Function("f", 'return function('+withArgs(n)+'){return f.apply(this, arguments)}');
