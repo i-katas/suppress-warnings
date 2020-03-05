@@ -1,4 +1,11 @@
-(function(define) {
+(function(global, factory){
+  if(typeof module == 'object' && typeof module.exports == 'object') {
+    module.exports = factory();
+  }
+  else {
+    factory(global);
+  }
+})(typeof window !== 'undefined' && window || this, function(window) {
   var cache = {};
   var rewriteLength = (function(rewrite){ 
     try {
@@ -21,9 +28,14 @@
       return Array(n).fill('_').join(',');
   }
 
-  define('arity', function (n, callback) {
+  function arity(n, callback) {
     var make = cache[n] || (cache[n] = factory(n));
     return arguments.length > 1 ? make(callback) : make;
-  })
+  };
 
-})(typeof module == 'object' && typeof module.exports == 'object' ?  function(_, fn) { module.exports = fn } : function(name, fn) { window[name] = fn})
+  if(window) {
+    window.arity = arity;
+  }
+
+  return arity;
+})
