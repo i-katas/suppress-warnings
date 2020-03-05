@@ -1,17 +1,17 @@
 (function(define) {
   var cache = {};
-  var supportsRewriteLength = (function(rewrite){ 
+  var rewriteLength = (function(rewrite){ 
     try {
-      return rewrite && rewrite(arguments.callee, 'length', {value: 5}).length == 5; 
+      return rewrite && rewrite(arguments.callee, 'length', {value: 5}).length == 5 && rewrite; 
     } catch(e) {
       return false;
     }
   })(Object.defineProperty);
 
   function factory(n) {
-    if(supportsRewriteLength) {
+    if(rewriteLength) {
       return function(f) {
-        return Object.defineProperty(f, 'length', {value: n});
+        return rewriteLength(f, 'length', {value: n});
       };
     }
     return new Function("f", 'return function('+withArgs(n)+'){return f.apply(this, arguments)}');
